@@ -22,6 +22,7 @@ import java.util.Date;
 @Entity
 @Table(name = "athlete")
 public class Athlete implements Serializable {
+    //region Members
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,4 +48,5 @@ public class Athlete implements Serializable {
 
     @Length(max = 500)
     private String profilePicture;
+    //endregion
 }
