@@ -23,6 +23,10 @@ public class AthleteIn implements Serializable {
     @Length(max = 60)
     private String mainSport;
 
+    @Min(16)
+    @Max(65)
+    private Integer age;
+
     @Length(max = 60)
     private String optionalSport;
 
@@ -36,14 +40,15 @@ public class AthleteIn implements Serializable {
 
     //region Public methods
     public Athlete toAthlete() {
-        return Athlete.builder().createdAt(new Date()).fullname(fullName)
-                .mainSport(mainSport).optionalSport(optionalSport).nationality(nationality)
+        return Athlete.builder().createdAt(new Date()).fullName(fullName)
+                .mainSport(mainSport).age(age).optionalSport(optionalSport).nationality(nationality)
                 .profilePicture(profilePicture).build();
     }
 
     public void updateAthlete(Athlete athlete) {
-        athlete.setFullname(fullName);
+        athlete.setFullName(fullName);
         athlete.setMainSport(mainSport);
+        athlete.setAge(age);
         athlete.setOptionalSport(optionalSport);
         athlete.setNationality(nationality);
         athlete.setProfilePicture(profilePicture);

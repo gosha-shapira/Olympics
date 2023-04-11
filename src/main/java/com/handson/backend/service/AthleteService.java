@@ -5,6 +5,7 @@ import com.handson.backend.repo.AthleteRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,4 +30,11 @@ public class AthleteService {
         repo.delete(student);
     }
 
+    public List<Athlete> getAthletesWithAgeHigherThan (Integer age) {
+        return repo.findAllByAgeGreaterThan(age);
+    }
+
+    public List<Athlete> getAthletesWithAgeLessThan (Integer age) {
+        return repo.findAllByAgeLessThan(age);
+    }
 }

@@ -34,7 +34,11 @@ public class Athlete implements Serializable {
 
     @NotEmpty
     @Length(max = 60)
-    private String fullname;
+    private String fullName;
+
+    @Max(value = 65, message = "The age must be less than ${value}.")
+    @Min(value = 16, message = "The age must be grater than ${value}.")
+    private Integer age;
 
     @NotEmpty
     @Length(max = 60)
