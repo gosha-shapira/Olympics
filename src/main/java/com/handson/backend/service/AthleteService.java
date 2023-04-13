@@ -22,12 +22,12 @@ public class AthleteService {
         return repo.findById(id);
     }
 
-    public Athlete save(Athlete student) {
-        return repo.save(student);
+    public Athlete save(Athlete athlete) {
+        return repo.save(athlete);
     }
 
-    public void delete(Athlete student) {
-        repo.delete(student);
+    public void delete(Athlete athlete) {
+        repo.delete(athlete);
     }
 
     public List<Athlete> getAthletesWithAgeHigherThan (Integer age) {
