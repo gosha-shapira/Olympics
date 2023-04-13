@@ -3,6 +3,10 @@ package com.handson.backend.controllers;
 import com.handson.backend.model.Athlete;
 import com.handson.backend.model.AthleteIn;
 import com.handson.backend.service.AthleteService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,17 +16,24 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
+@Api
 @RequestMapping("/api/athletes")
 public class AthletesController {
 
     @Autowired
     AthleteService athleteService;
 
+    @ApiOperation(value = "Get all athletes", notes = "Get all athletes")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<?> getAllAthletes() {
         return new ResponseEntity<>(athleteService.all(), HttpStatus.OK);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 500, message = "Server error"),
+            @ApiResponse(code = 404, message = "Service not found"),
+            @ApiResponse(code = 200, message = "Successful retrieval",
+                    response = Athlete.class, responseContainer = "List") })
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getOneAthlete(@PathVariable Long id) {
         return new ResponseEntity<>(athleteService.findById(id), HttpStatus.OK);
