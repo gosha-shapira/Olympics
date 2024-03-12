@@ -36,6 +36,10 @@ public class AthletesController {
                     response = Athlete.class, responseContainer = "List") })
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getOneAthlete(@PathVariable Long id) {
+        Optional<Athlete> retVal =  athleteService.findById(id);
+        if (retVal.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(athleteService.findById(id), HttpStatus.OK);
     }
 
