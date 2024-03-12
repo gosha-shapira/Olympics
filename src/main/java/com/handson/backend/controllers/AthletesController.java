@@ -72,13 +72,13 @@ public class AthletesController {
     }
 
     @RequestMapping(value = "/ageGreater", method = RequestMethod.GET)
-    public ResponseEntity<?> getStudentWithSatHigherThan(@RequestParam Integer age)
+    public ResponseEntity<?> getAthletesWithAgeHigherThan(@RequestParam Integer age)
     {
         return new ResponseEntity<>(athleteService.getAthletesWithAgeHigherThan(age), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/ageLower", method = RequestMethod.GET)
-    public ResponseEntity<?> getStudentWithSatLessThan(@RequestParam Integer age)
+    public ResponseEntity<?> getAthletesWithAgeLessThan(@RequestParam Integer age)
     {
         return new ResponseEntity<>(athleteService.getAthletesWithAgeLessThan(age), HttpStatus.OK);
     }

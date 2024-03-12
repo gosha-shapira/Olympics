@@ -12,9 +12,13 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -29,6 +33,27 @@ public class AthletesControllerTest {
     @BeforeEach
     public void init() {
         MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void getAllAthletesReturnsAllAthletes() {
+        List<Athlete> athletes = Arrays.asList(new Athlete(), new Athlete());
+        when(athleteService.all()).thenReturn(athletes);
+
+        ResponseEntity<?> response = athletesController.getAllAthletes();
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(athletes, response.getBody());
+    }
+
+    @Test
+    public void getAllAthletesReturnsEmptyListWhenNoAthletes() {
+        when(athleteService.all()).thenReturn(Collections.emptyList());
+
+        ResponseEntity<?> response = athletesController.getAllAthletes();
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(((List<?>) response.getBody()).isEmpty());
     }
 
     @Test
@@ -66,6 +91,53 @@ public class AthletesControllerTest {
         assertEquals(athlete, response.getBody());
     }
 
+    @Test
+    public void updateAthleteReturnsUpdatedAthlete() {
+        AthleteIn athleteIn = createAthleteIn();
+        Athlete athlete = athleteIn.toAthlete();
+        when(athleteService.findById(1L)).thenReturn(Optional.of(athlete));
+        when(athleteService.save(any())).thenReturn(athlete);
+
+        ResponseEntity<?> response = athletesController.updateAthlete(1L, athleteIn);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(athlete, response.getBody());
+    }
+
+    @Test
+    public void deleteAthleteReturnsDeleted() {
+        Athlete athlete = new Athlete();
+        when(athleteService.findById(1L)).thenReturn(Optional.of(athlete));
+
+        ResponseEntity<?> response = athletesController.deleteAthlete(1L);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("DELETED", response.getBody());
+    }
+
+    @Test
+    public void getAthletesWithAgeHigherThanReturnsAthletes() {
+        Athlete athlete = new Athlete();
+        when(athleteService.getAthletesWithAgeHigherThan(25)).thenReturn(java.util.List.of(athlete));
+
+        ResponseEntity<?> response = athletesController.getAthletesWithAgeHigherThan(25);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(java.util.List.of(athlete), response.getBody());
+    }
+
+    @Test
+    public void getAthletesWithAgeLessThanReturnsAthletes() {
+        Athlete athlete = new Athlete();
+        when(athleteService.getAthletesWithAgeLessThan(25)).thenReturn(java.util.List.of(athlete));
+
+        ResponseEntity<?> response = athletesController.getAthletesWithAgeLessThan(25);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(java.util.List.of(athlete), response.getBody());
+    }
+
+    //region Private methods
     private AthleteIn createAthleteIn() {
         AthleteIn athleteIn = new AthleteIn();
         athleteIn.setFullName("John Doe");
@@ -76,4 +148,5 @@ public class AthletesControllerTest {
         athleteIn.setProfilePicture("https://www.google.com");
         return athleteIn;
     }
+    //endregion
 }
