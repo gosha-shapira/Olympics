@@ -1,12 +1,14 @@
 package com.handson.backend.controllers;
 
 import com.handson.backend.model.Athlete;
-import com.handson.backend.model.AthleteIn;
+import com.handson.backend.model.dto.AthleteIn;
 import com.handson.backend.service.AthleteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +22,23 @@ import java.util.Optional;
 @RequestMapping("/api/athletes")
 public class AthletesController {
 
-    @Autowired
-    AthleteService athleteService;
+    //region Properties
+    private final AthleteService athleteService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(AthletesController.class);
+    //endregion
 
+    //region Constructors
+    @Autowired
+    public AthletesController(AthleteService athleteService) {
+        this.athleteService = athleteService;
+    }
+    //endregion
+
+    //region Public Methods
     @ApiOperation(value = "Get all athletes", notes = "Get all athletes")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResponseEntity<?> getAllAthletes() {
+        LOGGER.info("Getting all athletes");
         return new ResponseEntity<>(athleteService.all(), HttpStatus.OK);
     }
 
@@ -36,8 +49,10 @@ public class AthletesController {
                     response = Athlete.class, responseContainer = "List") })
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getOneAthlete(@PathVariable Long id) {
+        LOGGER.info("Getting athlete with id: " + id);
         Optional<Athlete> retVal =  athleteService.findById(id);
         if (retVal.isEmpty()) {
+            LOGGER.error("Athlete with id: " + id + " not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(athleteService.findById(id), HttpStatus.OK);
@@ -46,7 +61,11 @@ public class AthletesController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<?> createAthlete(@RequestBody @Valid AthleteIn athleteIn) {
         Athlete athlete = athleteIn.toAthlete();
+
+        LOGGER.info("Creating athlete: " + athlete);
         athlete = athleteService.save(athlete);
+        LOGGER.info("Athlete created: " + athlete);
+
         return new ResponseEntity<>(athlete, HttpStatus.OK);
     }
 
@@ -54,10 +73,12 @@ public class AthletesController {
     public ResponseEntity<?> updateAthlete(@PathVariable Long id, @RequestBody @Valid AthleteIn athlete) {
         Optional<Athlete> dbAthlete = athleteService.findById(id);
         if (dbAthlete.isEmpty()) {
+            LOGGER.error("Athlete with id: " + id + " not found");
             throw new RuntimeException("Athlete with id: " + id + " not found");
         }
         athlete.updateAthlete(dbAthlete.get());
         Athlete updatedAthlete = athleteService.save(dbAthlete.get());
+        LOGGER.info("Athlete updated: " + updatedAthlete);
         return new ResponseEntity<>(updatedAthlete, HttpStatus.OK);
     }
 
@@ -65,6 +86,7 @@ public class AthletesController {
     public ResponseEntity<?> deleteAthlete(@PathVariable Long id) {
         Optional<Athlete> dbAthlete = athleteService.findById(id);
         if (dbAthlete.isEmpty()) {
+            LOGGER.error("Athlete with id: " + id + " not found");
             throw new RuntimeException("Athlete with id: " + id + " not found");
         }
         athleteService.delete(dbAthlete.get());
@@ -82,4 +104,5 @@ public class AthletesController {
     {
         return new ResponseEntity<>(athleteService.getAthletesWithAgeLessThan(age), HttpStatus.OK);
     }
+    //endregion
 }

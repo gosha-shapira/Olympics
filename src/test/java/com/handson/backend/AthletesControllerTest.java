@@ -2,7 +2,7 @@ package com.handson.backend;
 
 import com.handson.backend.controllers.AthletesController;
 import com.handson.backend.model.Athlete;
-import com.handson.backend.model.AthleteIn;
+import com.handson.backend.model.dto.AthleteIn;
 import com.handson.backend.service.AthleteService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

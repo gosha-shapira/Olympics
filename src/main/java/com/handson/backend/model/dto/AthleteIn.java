@@ -1,6 +1,7 @@
-package com.handson.backend.model;
+package com.handson.backend.model.dto;
 
 
+import com.handson.backend.model.Athlete;
 import com.handson.backend.repo.AthleteRepo;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
