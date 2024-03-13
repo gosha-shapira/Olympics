@@ -17,9 +17,6 @@ import java.util.Date;
 @Data
 public class AthleteIn implements Serializable {
 
-    @Autowired
-    private SportsTeamRepo sportsTeamRepo;
-
     //region Members
     @NotEmpty
     @Length(max = 60)
@@ -52,11 +49,6 @@ public class AthleteIn implements Serializable {
                 .mainSport(mainSport).age(age).optionalSport(optionalSport).nationality(nationality)
                 .profilePicture(profilePicture).build();
 
-        if (teamId != null) {
-            SportsTeam team = sportsTeamRepo.findById(teamId).orElse(null);
-            athlete.setTeam(team);
-        }
-
         return athlete;
     }
 
@@ -67,11 +59,6 @@ public class AthleteIn implements Serializable {
         athlete.setOptionalSport(optionalSport);
         athlete.setNationality(nationality);
         athlete.setProfilePicture(profilePicture);
-
-        if (teamId != null) {
-            SportsTeam team = sportsTeamRepo.findById(teamId).orElse(null);
-            athlete.setTeam(team);
-        }
     }
     //endregion
 

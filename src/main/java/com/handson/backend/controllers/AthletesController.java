@@ -60,24 +60,21 @@ public class AthletesController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<?> createAthlete(@RequestBody @Valid AthleteIn athleteIn) {
-        Athlete athlete = athleteIn.toAthlete();
-
-        LOGGER.info("Creating athlete: " + athlete);
-        athlete = athleteService.save(athlete);
+        LOGGER.info("Creating new athlete");
+        Athlete athlete = athleteService.createAthlete(athleteIn);
         LOGGER.info("Athlete created: " + athlete);
 
         return new ResponseEntity<>(athlete, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateAthlete(@PathVariable Long id, @RequestBody @Valid AthleteIn athlete) {
+    public ResponseEntity<?> updateAthlete(@PathVariable Long id, @RequestBody @Valid AthleteIn athleteIn) {
         Optional<Athlete> dbAthlete = athleteService.findById(id);
         if (dbAthlete.isEmpty()) {
             LOGGER.error("Athlete with id: " + id + " not found");
             throw new RuntimeException("Athlete with id: " + id + " not found");
         }
-        athlete.updateAthlete(dbAthlete.get());
-        Athlete updatedAthlete = athleteService.save(dbAthlete.get());
+        Athlete updatedAthlete = athleteService.updateAthlete(dbAthlete.get(), athleteIn);
         LOGGER.info("Athlete updated: " + updatedAthlete);
         return new ResponseEntity<>(updatedAthlete, HttpStatus.OK);
     }
