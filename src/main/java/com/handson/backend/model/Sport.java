@@ -54,8 +54,6 @@ public class Sport implements Serializable {
     @Enumerated(EnumType.STRING)
     private IntensityEnum sportIntensity;
 
-    @NotEmpty
-    @Length(max = 60)
     private SportsTeam sportsTeam;
 
     private Boolean sportOlympic;

@@ -140,7 +140,20 @@ public class SportsControllerTest {
         SportsTeam sportsTeam = new SportsTeam();
         sportsTeam.setName("Team");
         sportsTeam.setCountry("Country");
-        sportsTeam.setSport("Sport");
+
+        Sport sport = new Sport();
+        sport.setName("Sport");
+        sport.setDescription("Description");
+        sport.setRules("Rules");
+        sport.setEquipment("Equipment");
+        sport.setPopularity("Popularity");
+        sport.setSportIntensity(IntensityEnum.HIGH);
+        sport.setSportsTeam(sportsTeam);
+        sport.setSportOlympic(true);
+        sport.setSportParalympic(false);
+        sport.setSportWorldRecord("World Record");
+
+        sportsTeam.setSport(sport);
 
         return sportsTeam;
 

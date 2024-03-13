@@ -4,10 +4,9 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 public class SportsTeam implements Serializable {
 
@@ -17,10 +16,21 @@ public class SportsTeam implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "sport_id")
+    @Getter
+    @Setter
+    private Sport sport;
+
     @Getter
     @Setter
     @NonNull
     private String name;
+
+    @OneToMany(mappedBy = "team")
+    @Getter
+    @Setter
+    private List<Athlete> athletes;
 
     @Getter
     @Setter
@@ -29,10 +39,6 @@ public class SportsTeam implements Serializable {
     @Getter
     @Setter
     private String city;
-
-    @Getter
-    @Setter
-    private String sport;
 
     @Getter
     @Setter
@@ -66,6 +72,7 @@ public class SportsTeam implements Serializable {
     //region Constructors
     public SportsTeam() {
     }
+
     //endregion
 
 

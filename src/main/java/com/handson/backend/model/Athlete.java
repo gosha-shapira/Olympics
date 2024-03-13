@@ -1,10 +1,7 @@
 package com.handson.backend.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -52,5 +49,11 @@ public class Athlete implements Serializable {
 
     @Length(max = 500)
     private String profilePicture;
+
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    @Getter
+    @Setter
+    private SportsTeam team;
     //endregion
 }
