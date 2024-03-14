@@ -3,7 +3,10 @@ package com.handson.backend.model.dto;
 
 import com.handson.backend.model.Athlete;
 import com.handson.backend.model.SportsTeam;
+import com.handson.backend.repo.SportRepo;
 import com.handson.backend.repo.SportsTeamRepo;
+import com.handson.backend.service.SportService;
+import com.handson.backend.service.SportsTeamService;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Optional;
 
 @Data
 public class AthleteIn implements Serializable {
@@ -44,10 +48,17 @@ public class AthleteIn implements Serializable {
 
 
     //region Public methods
-    public Athlete toAthlete() {
-        Athlete athlete =  Athlete.builder().createdAt(new Date()).fullName(fullName)
-                .mainSport(mainSport).age(age).optionalSport(optionalSport).nationality(nationality)
-                .profilePicture(profilePicture).build();
+    public Athlete toAthlete(SportsTeam sportsTeam) {
+        Athlete athlete = Athlete.builder()
+                .createdAt(new Date())
+                .fullName(fullName)
+                .mainSport(mainSport)
+                .age(age)
+                .optionalSport(optionalSport)
+                .nationality(nationality)
+                .profilePicture(profilePicture)
+                .team(sportsTeam)
+                .build();
 
         return athlete;
     }
@@ -59,6 +70,7 @@ public class AthleteIn implements Serializable {
         athlete.setOptionalSport(optionalSport);
         athlete.setNationality(nationality);
         athlete.setProfilePicture(profilePicture);
+        athlete.setTeam(athlete.getTeam());
     }
     //endregion
 

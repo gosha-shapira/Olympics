@@ -3,13 +3,14 @@ package com.handson.backend.repo;
 import com.handson.backend.model.Athlete;
 import com.handson.backend.model.Sport;
 import com.handson.backend.model.SportsTeam;
+import lombok.NonNull;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
 public interface SportsTeamRepo extends CrudRepository<SportsTeam, Long> {
 
-    Optional<SportsTeam> findById(Long id);
+    @NonNull Optional<SportsTeam> findById(Long id);
     Iterable<SportsTeam> findAllByNameContaining(String name);
     Iterable<SportsTeam> findAllByCountry(String country);
     Iterable<SportsTeam> findAllByCity(String city);

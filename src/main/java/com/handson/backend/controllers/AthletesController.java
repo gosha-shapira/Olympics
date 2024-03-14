@@ -60,6 +60,7 @@ public class AthletesController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<?> createAthlete(@RequestBody @Valid AthleteIn athleteIn) {
+        athleteService.validateAthleteIn(athleteIn);
         LOGGER.info("Creating new athlete");
         Athlete athlete = athleteService.createAthlete(athleteIn);
         LOGGER.info("Athlete created: " + athlete);
