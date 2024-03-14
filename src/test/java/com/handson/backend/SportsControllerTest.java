@@ -128,7 +128,7 @@ public class SportsControllerTest {
         sport.setEquipment("Equipment");
         sport.setPopularity("Popularity");
         sport.setSportIntensity(IntensityEnum.HIGH);
-        sport.setSportsTeam(createSportsTeam());
+        sport.setSportsTeam(Arrays.asList(createSportsTeam()));
         sport.setSportOlympic(true);
         sport.setSportParalympic(false);
         sport.setSportWorldRecord("World Record");
@@ -148,7 +148,7 @@ public class SportsControllerTest {
         sport.setEquipment("Equipment");
         sport.setPopularity("Popularity");
         sport.setSportIntensity(IntensityEnum.HIGH);
-        sport.setSportsTeam(sportsTeam);
+        sport.setSportsTeam(Arrays.asList(sportsTeam));
         sport.setSportOlympic(true);
         sport.setSportParalympic(false);
         sport.setSportWorldRecord("World Record");

@@ -1,13 +1,16 @@
 package com.handson.backend.model;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Entity
 public class SportsTeam implements Serializable {
 
     //region Members
@@ -27,9 +30,7 @@ public class SportsTeam implements Serializable {
     @NonNull
     private String name;
 
-    @OneToMany(mappedBy = "team")
-    @Getter
-    @Setter
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Athlete> athletes;
 
     @Getter
@@ -69,10 +70,20 @@ public class SportsTeam implements Serializable {
     private String description;
     //endregion
 
-    //region Constructors
-    public SportsTeam() {
-    }
 
+    //update sports team
+    public void updateSportsTeam(SportsTeam sportsTeam) {
+        this.name = sportsTeam.getName();
+        this.country = sportsTeam.getCountry();
+        this.city = sportsTeam.getCity();
+        this.league = sportsTeam.getLeague();
+        this.stadium = sportsTeam.getStadium();
+        this.coach = sportsTeam.getCoach();
+        this.foundation = sportsTeam.getFoundation();
+        this.website = sportsTeam.getWebsite();
+        this.logo = sportsTeam.getLogo();
+        this.description = sportsTeam.getDescription();
+    }
     //endregion
 
 
