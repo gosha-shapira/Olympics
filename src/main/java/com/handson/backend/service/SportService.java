@@ -41,12 +41,8 @@ public class SportService {
         return repo.findAllByNameContaining(name);
     }
 
-    public Iterable<Sport> findByIntensity(String intensity) {
-        return repo.findAllByIntensity(IntensityEnum.valueOf(intensity));
-    }
-
-    public Iterable<Sport> findBySportTeam(String sportTeam) {
-        return repo.findAllBySportTeam(sportTeam);
-    }
+//    public Iterable<Sport> findBySportsTeam(String sportTeam) {
+//        return repo.findAllBySporstTeam(sportTeam);
+//    }
     //endregion
 }

@@ -12,6 +12,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -54,7 +55,8 @@ public class Sport implements Serializable {
     @Enumerated(EnumType.STRING)
     private IntensityEnum sportIntensity;
 
-    private SportsTeam sportsTeam;
+    @OneToMany(mappedBy = "sport", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SportsTeam> sportsTeam;
 
     private Boolean sportOlympic;
 

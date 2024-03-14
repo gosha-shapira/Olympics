@@ -1,5 +1,6 @@
 package com.handson.backend.controllers;
 
+import com.handson.backend.enums.IntensityEnum;
 import com.handson.backend.model.Sport;
 import com.handson.backend.model.dto.SportIn;
 import com.handson.backend.service.SportService;
@@ -59,17 +60,11 @@ public class SportsController {
         return new ResponseEntity<>(sportService.findByName(name), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ResponseEntity<?> searchSportByIntensity(@PathVariable String intensity) {
-        LOGGER.info("Searching sport with intensity: " + intensity);
-        return new ResponseEntity<>(sportService.findByIntensity(intensity), HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ResponseEntity<?> searchSportBySportTeam(@PathVariable String sportTeam) {
-        LOGGER.info("Searching sport with sportTeam: " + sportTeam);
-        return new ResponseEntity<>(sportService.findBySportTeam(sportTeam), HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/search", method = RequestMethod.GET)
+//    public ResponseEntity<?> searchSportBySportTeam(@PathVariable String sportTeam) {
+//        LOGGER.info("Searching sport with sportTeam: " + sportTeam);
+//        return new ResponseEntity<>(sportService.findBySportsTeam(sportTeam), HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<?> createSport(@RequestBody @Valid SportIn sportIn) {

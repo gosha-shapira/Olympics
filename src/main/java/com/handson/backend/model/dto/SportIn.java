@@ -3,6 +3,7 @@ package com.handson.backend.model.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.handson.backend.enums.IntensityEnum;
 import com.handson.backend.model.Sport;
@@ -47,7 +48,7 @@ public class SportIn implements Serializable {
 
     @NotEmpty
     @Length(max = 60)
-    private SportsTeam sportsTeam;
+    private List<SportsTeam> sportsTeam;
 
     private Boolean sportOlympic;
 
@@ -84,7 +85,7 @@ public class SportIn implements Serializable {
         this.sportIntensity = intensity;
     }
 
-    public void setSportTeam(SportsTeam sportsTeam) {
+    public void setSportsTeam(List<SportsTeam> sportsTeam) {
         this.sportsTeam = sportsTeam;
     }
 }
