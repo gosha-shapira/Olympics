@@ -5,6 +5,8 @@ import com.handson.backend.model.SportsTeam;
 import com.handson.backend.repo.SportsTeamRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class SportsTeamService {
 
@@ -31,8 +33,8 @@ public class SportsTeamService {
         repo.delete(sportsTeam);
     }
 
-    public SportsTeam findById(Long id) {
-        return repo.findById(id).orElse(null);
+    public Optional<SportsTeam> findById(Long id) {
+        return repo.findById(id);
     }
 
     public Iterable<SportsTeam> findByName(String name) {
@@ -55,5 +57,15 @@ public class SportsTeamService {
         return repo.findAllByLeague(league);
     }
 
+    // update sports team
+    public SportsTeam updateSportsTeam(SportsTeam sportsTeam) {
+        Optional<SportsTeam> sportsTeamOptional = repo.findById(sportsTeam.getId());
+        if (sportsTeamOptional.isPresent()) {
+            SportsTeam sportsTeamToUpdate = sportsTeamOptional.get();
+            sportsTeamToUpdate.updateSportsTeam(sportsTeam);
+        }
 
+        return sportsTeam;
+
+    }
 }

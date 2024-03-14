@@ -70,6 +70,20 @@ public class SportsTeam implements Serializable {
     private String description;
     //endregion
 
+
+    //update sports team
+    public void updateSportsTeam(SportsTeam sportsTeam) {
+        this.name = sportsTeam.getName();
+        this.country = sportsTeam.getCountry();
+        this.city = sportsTeam.getCity();
+        this.league = sportsTeam.getLeague();
+        this.stadium = sportsTeam.getStadium();
+        this.coach = sportsTeam.getCoach();
+        this.foundation = sportsTeam.getFoundation();
+        this.website = sportsTeam.getWebsite();
+        this.logo = sportsTeam.getLogo();
+        this.description = sportsTeam.getDescription();
+    }
     //endregion
 
 
