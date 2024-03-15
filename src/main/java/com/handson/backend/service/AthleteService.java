@@ -68,7 +68,7 @@ public class AthleteService {
     }
 
     public Athlete updateAthlete(Athlete athlete, AthleteIn athleteIn) {
-        athleteIn.updateAthlete(athlete);
+        athleteIn.updateAthlete(athlete, sportsTeamRepo);
 
         if (athleteIn.getTeamId() != null) {
             SportsTeam team = sportsTeamRepo.findById(athleteIn.getTeamId()).orElse(null);

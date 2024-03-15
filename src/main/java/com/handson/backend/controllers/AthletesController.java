@@ -68,17 +68,17 @@ public class AthletesController {
         return new ResponseEntity<>(athlete, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateAthlete(@PathVariable Long id, @RequestBody @Valid AthleteIn athleteIn) {
-        Optional<Athlete> dbAthlete = athleteService.findById(id);
-        if (dbAthlete.isEmpty()) {
-            LOGGER.error("Athlete with id: " + id + " not found");
-            throw new RuntimeException("Athlete with id: " + id + " not found");
-        }
-        Athlete updatedAthlete = athleteService.updateAthlete(dbAthlete.get(), athleteIn);
-        LOGGER.info("Athlete updated: " + updatedAthlete);
-        return new ResponseEntity<>(updatedAthlete, HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+//    public ResponseEntity<?> updateAthlete(@PathVariable Long id, @RequestBody @Valid AthleteIn athleteIn) {
+//        Optional<Athlete> dbAthlete = athleteService.findById(id);
+//        if (dbAthlete.isEmpty()) {
+//            LOGGER.error("Athlete with id: " + id + " not found");
+//            throw new RuntimeException("Athlete with id: " + id + " not found");
+//        }
+//        Athlete updatedAthlete = athleteService.updateAthlete(dbAthlete.get(), athleteIn);
+//        LOGGER.info("Athlete updated: " + updatedAthlete);
+//        return new ResponseEntity<>(updatedAthlete, HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteAthlete(@PathVariable Long id) {
